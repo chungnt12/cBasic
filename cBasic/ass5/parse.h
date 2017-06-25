@@ -1,8 +1,10 @@
 #ifndef __PARSE_H_
 #define __PARSE_H_
 
+#include "mystring.h"
 #include <stdio.h>
 #include <stdint.h>
+#include <stdlib.h>
 
 #define MAX_DATA_SIZE 64 /*size max data*/
 #define MAX_STRING_LENGTH 79 /*length string max */
@@ -34,6 +36,14 @@ typedef struct
     uint8_t dataLength;
 } parse_data_struct_t;
 parse_status_t parseData(uint8_t pInput[], parse_data_struct_t *pOutput);
+
+void outputParseData(parse_data_struct_t* pOutput);
+
+void outputStatus(parse_status_t *pStatus);
+
+/*uint32_t getHex(uint8_t pInput[], uint8_t mode, uint8_t address);
+
+uint8_t checkSum(uint8_t pInput[], uint8_t length);*/
 
 
 #endif /*__PARSE_H_*/

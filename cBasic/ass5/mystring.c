@@ -29,6 +29,22 @@ void getLine(uint8_t* str)
         str[i] = c;
     }
 }
+
+uint8_t strLength(uint8_t* str)
+{
+	uint8_t count = 0;
+	while(TRUE)
+	{
+		if(str[count] == '\0')
+		{
+			return count;
+		}
+		else
+		{
+			count++;
+		}
+	}
+}
 void strCoppy(uint8_t* str1, uint8_t* str2, uint8_t begin, uint8_t length)
 {
     uint8_t count = 0;
@@ -38,7 +54,7 @@ void strCoppy(uint8_t* str1, uint8_t* str2, uint8_t begin, uint8_t length)
         str1[count] = str2[count + begin];
     }
 }
-uint8_t coverChar(uint8_t input)
+uint8_t coverCharToHex(uint8_t input)
 {
     uint8_t value;
     switch(input)
@@ -115,11 +131,6 @@ uint8_t fgetLine(FILE* pFile, uint8_t* string, uint8_t length, uint8_t condition
     else
     {
         character = fgetc(pFile);
-        if (character == EOF)
-        {
-            fclose(pFile);
-            return;
-        }
         PRINTF("Fist character: %c\n", character);
         while(character == condition)
         {
@@ -127,12 +138,12 @@ uint8_t fgetLine(FILE* pFile, uint8_t* string, uint8_t length, uint8_t condition
             string[count++] = character;
             PRINTF("count: %d\n", count);
             PRINTF("String: %s\n", string);
-            do
+            while(TRUE)
             {
                 PRINTF("Start do while\n");
                 character = fgetc(pFile);
                 PRINTF("Get character: %c\n", character);
-                if(character == '\n' || count == length)
+                if(character == '\n' || count == length || feof(pFile))
                 {
                     string[count] = '\0';
                     PRINTF("Stop do while\n");
@@ -144,7 +155,7 @@ uint8_t fgetLine(FILE* pFile, uint8_t* string, uint8_t length, uint8_t condition
                     PRINTF("count: %d\n", count);
                     PRINTF("String: %s\n", string);
                 }
-            } while (1/*character == '\n'*/);
+            }
         }
     }
     PRINTF("Stop getLine\n");
@@ -201,5 +212,6 @@ uint8_t strFindIn(uint8_t* str1, uint8_t* str2)
     uint8_t str2[20];
     strCoppy(str2,str1,0,20);
     printf("str2: %s\n", str2);
+    printf("length: %d\n", strLength(str1));
     return 0;
 }*/
